@@ -1,6 +1,6 @@
 pipeline {
   environment {
-    registry = "devhodi/docker-test"
+    registry = "devhodi/app-hodaya"
     registryCredential = 'docker_hub'
     dockerImage = ''
   }
@@ -12,14 +12,7 @@ pipeline {
         script {
             properties([pipelineTriggers([pollSCM('30 * * * *')])])
         }
-        git 'https://github.com/hodayaYProject/docker_jenkins_backend.git'
-      }
-    }
-    stage('run backend'){
-      steps{
-        bat 'start /min python rest_app.py'
-        bat 'python backend_testing.py'
-        bat 'python clean_environment.py'
+        git 'https://github.com/hodayaYProject/sela_project.git'
       }
     }
     stage('Building image') {
@@ -38,25 +31,16 @@ pipeline {
         }
       }
     }
-     stage('run docker container'){
-       steps{
-         bat 'echo IMAGE_TAG=${BUILD_NUMBER} > .env'
-         bat 'docker-compose up -d'
-         bat 'python docker_backend_testing.py'
-         bat 'docker-compose down'
-       }
-    }
-    stage('Remove Unused docker image') {
+   stage('Remove Unused docker image') {
       steps{
         bat "docker rmi $registry:$BUILD_NUMBER"
       }
     }
     stage('run helm k8s'){
         steps{
-//           bat 'helm install k8shelm k8s_backend_test --set image.test.tag="47"'
           bat 'helm install k8shelm k8s_backend_test --set image.test.tag="${BUILD_NUMBER}"'
-          bat 'minikube service test-k8s-service --url > k8s_url.txt'
-          bat 'python k8s_backend_testing.py'
+//           bat 'minikube service test-k8s-service --url > k8s_url.txt'
+//           bat 'python k8s_backend_testing.py'
           bat 'helm delete k8shelm'
         }
     }

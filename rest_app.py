@@ -1,8 +1,6 @@
 import jsonpickle
 from flask import Flask, request
-from db_connector import Stock
 from datetime import date
-from user import User
 import os
 import signal
 
@@ -15,39 +13,11 @@ def stop_server():
 
 @app.route('/users/<user_id>', methods=['GET','POST','PUT','DELETE'])
 def user(user_id):
-    if request.method == 'POST':
-        request_data = request.json
-        user_name = request_data.get('user_name')
-        user = jsonpickle.encode(User((user_id,user_name, date.today())))
-        user = Stock.create_user(user)
-        if user:
-            return {"status": "ok", "user_added": user_name}, 200
-        else:
-            return {"status": 'error', "reason": "id already exits"}, 500
+    if request.method == 'GET':
+        return {"status": "ok", "user_name": "HODAYA"}, 200
+    return {"Hi, this is for test"}, 200
 
-    elif request.method == 'GET':
-        user = Stock.get_user(user_id)
-        if user:
-            return {"status": "ok", "user_name": user.name}, 200
-        else:
-            return {"status": 'error', "reason": "no such id"}, 500
 
-    elif request.method == 'PUT':
-        request_data = request.json
-        user_name = request_data.get('user_name')
-        user = jsonpickle.encode(User((user_id,user_name, date.today())))
-        user = Stock.update_user(user)
-        if user:
-            return {"status": "ok", "user_update": user_name}, 200
-        else:
-            return {"status": 'error', "reason": "no such id"}, 500
-
-    elif request.method == 'DELETE':
-        user = Stock.delete_user(user_id)
-        if user == 1:
-            return {"status": "ok", "user_deleted": user_id}, 200
-        else:
-            return {"status": 'error', "reason": "no such id"}, 500
 
 
 

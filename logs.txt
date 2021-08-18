@@ -1,0 +1,110 @@
+
+C:\Users\hodiy\Documents\workspace\Sela>minikube start
+* minikube v1.20.0 on Microsoft Windows 10 Home 10.0.19042 Build 19042
+  - KUBECONFIG=C:/Users/hodiy/.kube/config
+* Automatically selected the docker driver. Other choices: virtualbox, ssh
+* Starting control plane node minikube in cluster minikube
+* Pulling base image ...
+* Creating docker container (CPUs=2, Memory=2200MB) ...
+* Preparing Kubernetes v1.20.2 on Docker 20.10.6 ...
+  - Generating certificates and keys ...
+  - Booting up control plane ...
+  - Configuring RBAC rules ...
+* Verifying Kubernetes components...
+  - Using image gcr.io/k8s-minikube/storage-provisioner:v5
+* Enabled addons: storage-provisioner, default-storageclass
+* Done! kubectl is now configured to use "minikube" cluster and "default" namespace by default
+
+C:\Users\hodiy\Documents\workspace\Sela>kubectl config view
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority: C:\Users\hodiy\.minikube\ca.crt
+    extensions:
+    - extension:
+        last-update: Thu, 19 Aug 2021 00:07:05 IDT
+        provider: minikube.sigs.k8s.io
+        version: v1.20.0
+      name: cluster_info
+    server: https://127.0.0.1:62427
+  name: minikube
+contexts:
+- context:
+    cluster: minikube
+    extensions:
+    - extension:
+        last-update: Thu, 19 Aug 2021 00:07:05 IDT
+        provider: minikube.sigs.k8s.io
+        version: v1.20.0
+      name: context_info
+    namespace: default
+    user: minikube
+  name: minikube
+current-context: minikube
+kind: Config
+preferences: {}
+users:
+- name: minikube
+  user:
+    client-certificate: C:\Users\hodiy\.minikube\profiles\minikube\client.crt
+    client-key: C:\Users\hodiy\.minikube\profiles\minikube\client.key
+
+C:\Users\hodiy\Documents\workspace\Sela>kubectl create deployment hello-node --image=k8s.gcr.io/echoserver:1.4
+deployment.apps/hello-node created
+
+C:\Users\hodiy\Documents\workspace\Sela>kubectl get deployments
+NAME         READY   UP-TO-DATE   AVAILABLE   AGE
+hello-node   0/1     1            0           10s
+
+C:\Users\hodiy\Documents\workspace\Sela>kubectl get pods
+NAME                          READY   STATUS              RESTARTS   AGE
+hello-node-7567d9fdc9-5pczp   0/1     ContainerCreating   0          17s
+
+C:\Users\hodiy\Documents\workspace\Sela>kubectl get pods
+NAME                          READY   STATUS              RESTARTS   AGE
+hello-node-7567d9fdc9-5pczp   0/1     ContainerCreating   0          22s
+
+C:\Users\hodiy\Documents\workspace\Sela>kubectl get pods
+NAME                          READY   STATUS              RESTARTS   AGE
+hello-node-7567d9fdc9-5pczp   0/1     ContainerCreating   0          29s
+
+C:\Users\hodiy\Documents\workspace\Sela>kubectl get pods
+NAME                          READY   STATUS    RESTARTS   AGE
+hello-node-7567d9fdc9-5pczp   1/1     Running   0          48s
+
+C:\Users\hodiy\Documents\workspace\Sela>kubectl expose deployment hello-node --type=LoadBalancer --port=8080
+service/hello-node exposed
+
+C:\Users\hodiy\Documents\workspace\Sela>kubectl get services
+NAME         TYPE           CLUSTER-IP     EXTERNAL-IP   PORT(S)          AGE
+hello-node   LoadBalancer   10.106.52.14   <pending>     8080:31097/TCP   8s
+kubernetes   ClusterIP      10.96.0.1      <none>        443/TCP          10m
+
+C:\Users\hodiy\Documents\workspace\Sela>minikube service hello-node
+|-----------|------------|-------------|---------------------------|
+| NAMESPACE |    NAME    | TARGET PORT |            URL            |
+|-----------|------------|-------------|---------------------------|
+| default   | hello-node |        8080 | http://192.168.49.2:31097 |
+|-----------|------------|-------------|---------------------------|
+* Starting tunnel for service hello-node.
+|-----------|------------|-------------|------------------------|
+| NAMESPACE |    NAME    | TARGET PORT |          URL           |
+|-----------|------------|-------------|------------------------|
+| default   | hello-node |             | http://127.0.0.1:60044 |
+|-----------|------------|-------------|------------------------|
+* Opening service default/hello-node in default browser...
+! Because you are using a Docker driver on windows, the terminal needs to be open to run it.
+* Stopping tunnel for service hello-node.
+
+C:\Users\hodiy\Documents\workspace\Sela>minikube service hello-node --url
+* Starting tunnel for service hello-node.
+|-----------|------------|-------------|------------------------|
+| NAMESPACE |    NAME    | TARGET PORT |          URL           |
+|-----------|------------|-------------|------------------------|
+| default   | hello-node |             | http://127.0.0.1:51616 |
+|-----------|------------|-------------|------------------------|
+http://127.0.0.1:51616
+! Because you are using a Docker driver on windows, the terminal needs to be open to run it.
+* Stopping tunnel for service hello-node.
+
+C:\Users\hodiy\Documents\workspace\Sela>

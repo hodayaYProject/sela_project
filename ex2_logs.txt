@@ -1,0 +1,48 @@
+
+C:\Users\hodiy\Documents\workspace\Sela>minikube start
+* minikube v1.20.0 on Microsoft Windows 10 Home 10.0.19042 Build 19042
+  - KUBECONFIG=C:/Users/hodiy/.kube/config
+* Automatically selected the docker driver. Other choices: virtualbox, ssh
+* Starting control plane node minikube in cluster minikube
+* Pulling base image ...
+* Creating docker container (CPUs=2, Memory=2200MB) ...
+* Preparing Kubernetes v1.20.2 on Docker 20.10.6 ...
+  - Generating certificates and keys ...
+  - Booting up control plane ...
+  - Configuring RBAC rules ...
+* Verifying Kubernetes components...
+! Executing "docker container inspect minikube --format={{.State.Status}}" took an unusually long time: 2.5627628s
+* Restarting the docker service may improve performance.
+  - Using image gcr.io/k8s-minikube/storage-provisioner:v5
+* Enabled addons: storage-provisioner, default-storageclass
+* Done! kubectl is now configured to use "minikube" cluster and "default" namespace by default
+
+C:\Users\hodiy\Documents\workspace\Sela>minikube service test-k8s-service --url
+
+X Exiting due to SVC_NOT_FOUND: Service 'test-k8s-service' was not found in 'default' namespace.
+You may select another namespace by using 'minikube service test-k8s-service -n <namespace>'. Or list out all the services using 'minikube service list'
+
+
+C:\Users\hodiy\Documents\workspace\Sela>kubectl apply -f deployment.yaml -f service.yaml
+deployment.apps/test-k8s-deployment created
+service/test-k8s-service created
+
+C:\Users\hodiy\Documents\workspace\Sela>minikube service test-k8s-service --url
+! Executing "docker container inspect minikube --format={{.State.Status}}" took an unusually long time: 2.1353708s
+* Restarting the docker service may improve performance.
+* Starting tunnel for service test-k8s-service.
+|-----------|------------------|-------------|------------------------|
+| NAMESPACE |       NAME       | TARGET PORT |          URL           |
+|-----------|------------------|-------------|------------------------|
+| default   | test-k8s-service |             | http://127.0.0.1:55135 |
+|-----------|------------------|-------------|------------------------|
+http://127.0.0.1:55135
+! Because you are using a Docker driver on windows, the terminal needs to be open to run it.
+* Stopping tunnel for service test-k8s-service.
+
+C:\Users\hodiy\Documents\workspace\Sela>kubectl get service -o wide
+NAME               TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE     SELECTOR
+kubernetes         ClusterIP      10.96.0.1        <none>        443/TCP        5m19s   <none>
+test-k8s-service   LoadBalancer   10.105.195.137   <pending>     80:31505/TCP   3m52s   app=test-k8s-deployment
+
+C:\Users\hodiy\Documents\workspace\Sela>
