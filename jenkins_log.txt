@@ -1,0 +1,270 @@
+
+Started by user unknown or anonymous
+Obtained Jenkinsfile from git https://github.com/hodayaYProject/sela_project.git
+Running in Durability level: MAX_SURVIVABILITY
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in C:\Users\hodiy\.jenkins\workspace\sela
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+No credentials specified
+ > git.exe rev-parse --resolve-git-dir C:\Users\hodiy\.jenkins\workspace\sela\.git # timeout=10
+Fetching changes from the remote Git repository
+ > git.exe config remote.origin.url https://github.com/hodayaYProject/sela_project.git # timeout=10
+Fetching upstream changes from https://github.com/hodayaYProject/sela_project.git
+ > git.exe --version # timeout=10
+ > git --version # 'git version 2.31.1.windows.1'
+ > git.exe fetch --tags --force --progress -- https://github.com/hodayaYProject/sela_project.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git.exe rev-parse "refs/remotes/origin/master^{commit}" # timeout=10
+Checking out Revision 4e19653478e18e57ac2e33b75309060a75c59574 (refs/remotes/origin/master)
+ > git.exe config core.sparsecheckout # timeout=10
+ > git.exe checkout -f 4e19653478e18e57ac2e33b75309060a75c59574 # timeout=10
+Commit message: "clean"
+ > git.exe rev-list --no-walk 4e19653478e18e57ac2e33b75309060a75c59574 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Cloning Git)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] properties
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] git
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+No credentials specified
+ > git.exe rev-parse --resolve-git-dir C:\Users\hodiy\.jenkins\workspace\sela\.git # timeout=10
+Fetching changes from the remote Git repository
+ > git.exe config remote.origin.url https://github.com/hodayaYProject/sela_project.git # timeout=10
+Fetching upstream changes from https://github.com/hodayaYProject/sela_project.git
+ > git.exe --version # timeout=10
+ > git --version # 'git version 2.31.1.windows.1'
+ > git.exe fetch --tags --force --progress -- https://github.com/hodayaYProject/sela_project.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git.exe rev-parse "refs/remotes/origin/master^{commit}" # timeout=10
+Checking out Revision 4e19653478e18e57ac2e33b75309060a75c59574 (refs/remotes/origin/master)
+ > git.exe config core.sparsecheckout # timeout=10
+ > git.exe checkout -f 4e19653478e18e57ac2e33b75309060a75c59574 # timeout=10
+ > git.exe branch -a -v --no-abbrev # timeout=10
+ > git.exe checkout -b master 4e19653478e18e57ac2e33b75309060a75c59574 # timeout=10
+Commit message: "clean"
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Building image)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] bat
+
+C:\Users\hodiy\.jenkins\workspace\sela>docker build -t devhodi/app-hodaya:2 .
+#1 [internal] load build definition from Dockerfile
+#1 sha256:8f801c79a716bf9a71025d2dcba4c22a8a5632b8a2ef9541e053b61906717eed
+#1 DONE 0.0s
+
+#1 [internal] load build definition from Dockerfile
+#1 sha256:8f801c79a716bf9a71025d2dcba4c22a8a5632b8a2ef9541e053b61906717eed
+#1 transferring dockerfile: 179B 0.1s done
+#1 DONE 0.1s
+
+#2 [internal] load .dockerignore
+#2 sha256:ca311e2037fd075b205044a9b3365dcead5b6d056049ed0a7c260c48f6e02da0
+#2 transferring context: 2B 0.0s done
+#2 DONE 0.1s
+
+#3 [internal] load metadata for docker.io/library/python:3.7-alpine
+#3 sha256:6aa3fbe2d5daab236c694fe35aaf5e88aa0902955f2d77235216c44ae1323666
+#3 DONE 0.0s
+
+#4 [1/5] FROM docker.io/library/python:3.7-alpine
+#4 sha256:2c3981f7dd2dc6f7d0aee36815f9bc4c295ee6d0690d7f9d144fda2078032e1c
+#4 DONE 0.0s
+
+#7 [internal] load build context
+#7 sha256:5726ead7f1ed42424d994d7c67eaf638c0a3575e3cd020703956158ef8b146cd
+#7 transferring context: 67.30kB 0.7s done
+#7 DONE 0.7s
+
+#5 [2/5] RUN mkdir /app
+#5 sha256:2f9ac848a0252318c168a8e2694ac422df2c9c6b88e6a8dc8703cc9efefe8350
+#5 CACHED
+
+#6 [3/5] WORKDIR /app
+#6 sha256:3928efa637654eaebb671cd8695caba782e8c4a89fad0191c7fdaefa3bedda3e
+#6 CACHED
+
+#8 [4/5] COPY . /app
+#8 sha256:a63289bed51d9745405d296340db76efa7b9ccc20504235c016c9dc422e19a20
+#8 DONE 0.2s
+
+#9 [5/5] RUN pip install -r requirements.txt
+#9 sha256:3e3822381b88d85fd965d3999d9f075704c73f56102f2cc4f16880e3ff97739d
+#9 6.124 Collecting flask
+#9 6.613   Downloading Flask-2.0.1-py3-none-any.whl (94 kB)
+#9 7.238 Collecting requests
+#9 7.349   Downloading requests-2.26.0-py2.py3-none-any.whl (62 kB)
+#9 8.041 Collecting jsonpickle
+#9 8.131   Downloading jsonpickle-2.0.0-py2.py3-none-any.whl (37 kB)
+#9 8.525 Collecting pymysql
+#9 8.605   Downloading PyMySQL-1.0.2-py3-none-any.whl (43 kB)
+#9 9.026 Collecting pyyaml
+#9 9.112   Downloading PyYAML-5.4.1.tar.gz (175 kB)
+#9 10.90   Installing build dependencies: started
+#9 26.13   Installing build dependencies: finished with status 'done'
+#9 26.13   Getting requirements to build wheel: started
+#9 30.80   Getting requirements to build wheel: finished with status 'done'
+#9 30.81     Preparing wheel metadata: started
+#9 31.57     Preparing wheel metadata: finished with status 'done'
+#9 31.93 Collecting pypika
+#9 32.11   Downloading pypika-0.48.8.tar.gz (67 kB)
+#9 32.59   Installing build dependencies: started
+#9 37.96   Installing build dependencies: finished with status 'done'
+#9 37.96   Getting requirements to build wheel: started
+#9 38.52   Getting requirements to build wheel: finished with status 'done'
+#9 38.52     Preparing wheel metadata: started
+#9 39.24     Preparing wheel metadata: finished with status 'done'
+#9 39.66 Collecting Werkzeug>=2.0
+#9 39.82   Downloading Werkzeug-2.0.1-py3-none-any.whl (288 kB)
+#9 40.41 Collecting Jinja2>=3.0
+#9 40.53   Downloading Jinja2-3.0.1-py3-none-any.whl (133 kB)
+#9 41.14 Collecting itsdangerous>=2.0
+#9 41.22   Downloading itsdangerous-2.0.1-py3-none-any.whl (18 kB)
+#9 41.40 Collecting click>=7.1.2
+#9 41.48   Downloading click-8.0.1-py3-none-any.whl (97 kB)
+#9 41.86 Collecting importlib-metadata
+#9 41.95   Downloading importlib_metadata-4.6.4-py3-none-any.whl (17 kB)
+#9 42.31 Collecting MarkupSafe>=2.0
+#9 42.38   Downloading MarkupSafe-2.0.1.tar.gz (18 kB)
+#9 43.51 Collecting certifi>=2017.4.17
+#9 43.61   Downloading certifi-2021.5.30-py2.py3-none-any.whl (145 kB)
+#9 43.85 Collecting idna<4,>=2.5
+#9 43.95   Downloading idna-3.2-py3-none-any.whl (59 kB)
+#9 44.23 Collecting urllib3<1.27,>=1.21.1
+#9 44.30   Downloading urllib3-1.26.6-py2.py3-none-any.whl (138 kB)
+#9 44.51 Collecting charset-normalizer~=2.0.0
+#9 44.58   Downloading charset_normalizer-2.0.4-py3-none-any.whl (36 kB)
+#9 45.08 Collecting typing-extensions>=3.6.4
+#9 45.16   Downloading typing_extensions-3.10.0.0-py3-none-any.whl (26 kB)
+#9 45.37 Collecting zipp>=0.5
+#9 45.47   Downloading zipp-3.5.0-py3-none-any.whl (5.7 kB)
+#9 45.58 Building wheels for collected packages: MarkupSafe, pyyaml, pypika
+#9 45.58   Building wheel for MarkupSafe (setup.py): started
+#9 46.55   Building wheel for MarkupSafe (setup.py): finished with status 'done'
+#9 46.55   Created wheel for MarkupSafe: filename=MarkupSafe-2.0.1-py3-none-any.whl size=9761 sha256=de8b97ff3ec61c4684f9b2a213e6e5cd4c968f90de7eb13ad7a12885ee9d583a
+#9 46.55   Stored in directory: /root/.cache/pip/wheels/1a/18/04/e3b5bd888f000c2716bccc94a565239f9defc47ef93d9e7bea
+#9 46.56   Building wheel for pyyaml (PEP 517): started
+#9 47.44   Building wheel for pyyaml (PEP 517): finished with status 'done'
+#9 47.44   Created wheel for pyyaml: filename=PyYAML-5.4.1-cp37-cp37m-linux_x86_64.whl size=45657 sha256=f1ad8cc617cf5cd0eaf957aae3f0f505af5fee4d43997f6e8ceefb7068453652
+#9 47.44   Stored in directory: /root/.cache/pip/wheels/f4/51/cc/858604f7bb9cab887106ff266a541546ad783b4fa20875051d
+#9 47.45   Building wheel for pypika (PEP 517): started
+#9 48.17   Building wheel for pypika (PEP 517): finished with status 'done'
+#9 48.18   Created wheel for pypika: filename=PyPika-0.48.8-py2.py3-none-any.whl size=53651 sha256=5c36d51d152755de8029e6afc89d2b8ee09833205c6b8d310a62eb02471c8245
+#9 48.18   Stored in directory: /root/.cache/pip/wheels/c5/97/f0/677a495c1d8e423e9d529d2fb70119645a4cebeb59b461a4f5
+#9 48.18 Successfully built MarkupSafe pyyaml pypika
+#9 48.62 Installing collected packages: zipp, typing-extensions, MarkupSafe, importlib-metadata, Werkzeug, urllib3, Jinja2, itsdangerous, idna, click, charset-normalizer, certifi, requests, pyyaml, pypika, pymysql, jsonpickle, flask
+#9 50.88 Successfully installed Jinja2-3.0.1 MarkupSafe-2.0.1 Werkzeug-2.0.1 certifi-2021.5.30 charset-normalizer-2.0.4 click-8.0.1 flask-2.0.1 idna-3.2 importlib-metadata-4.6.4 itsdangerous-2.0.1 jsonpickle-2.0.0 pymysql-1.0.2 pypika-0.48.8 pyyaml-5.4.1 requests-2.26.0 typing-extensions-3.10.0.0 urllib3-1.26.6 zipp-3.5.0
+#9 50.88 WARNING: Running pip as root will break packages and permissions. You should install packages reliably by using venv: https://pip.pypa.io/warnings/venv
+#9 50.89 WARNING: You are using pip version 21.1.2; however, version 21.2.4 is available.
+#9 50.89 You should consider upgrading via the '/usr/local/bin/python -m pip install --upgrade pip' command.
+#9 DONE 51.6s
+
+#10 exporting to image
+#10 sha256:e8c613e07b0b7ff33893b694f7759a10d42e180f2b4dc349fb57dc6b71dcab00
+#10 exporting layers
+#10 exporting layers 0.6s done
+#10 writing image sha256:462a9c07c1a3eb5a107b4cb0ad6fdf7b670b1a693116f39087ff06c61733665f
+#10 writing image sha256:462a9c07c1a3eb5a107b4cb0ad6fdf7b670b1a693116f39087ff06c61733665f done
+#10 naming to docker.io/devhodi/app-hodaya:2 done
+#10 DONE 0.6s
+
+Use 'docker scan' to run Snyk tests against images to find vulnerabilities and learn how to fix them
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy Image)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withDockerRegistry
+Using the existing docker config file.Removing blacklisted property: authsRemoving blacklisted property: credsStore$ docker login -u devhodi -p ******** https://index.docker.io/v1/
+WARNING! Using --password via the CLI is insecure. Use --password-stdin.
+Login Succeeded
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] bat
+
+C:\Users\hodiy\.jenkins\workspace\sela>docker tag devhodi/app-hodaya:2 devhodi/app-hodaya:2
+[Pipeline] isUnix
+[Pipeline] bat
+
+C:\Users\hodiy\.jenkins\workspace\sela>docker push devhodi/app-hodaya:2
+The push refers to repository [docker.io/devhodi/app-hodaya]
+7680ebbc1f4f: Preparing
+3634dcf00d88: Preparing
+5f70bf18a086: Preparing
+1c85cc5fcb0e: Preparing
+cf6f260c10b2: Preparing
+317c54183662: Preparing
+4f007a2ceb29: Preparing
+267a6a0302bf: Preparing
+b2d5eeeaba3a: Preparing
+317c54183662: Waiting
+4f007a2ceb29: Waiting
+267a6a0302bf: Waiting
+b2d5eeeaba3a: Waiting
+5f70bf18a086: Layer already exists
+cf6f260c10b2: Layer already exists
+1c85cc5fcb0e: Layer already exists
+4f007a2ceb29: Layer already exists
+3634dcf00d88: Pushed
+317c54183662: Layer already exists
+267a6a0302bf: Layer already exists
+b2d5eeeaba3a: Layer already exists
+7680ebbc1f4f: Pushed
+2: digest: sha256:de57225229fb254347d0d6762cd285ceb88ffde1154d709b4166756ea5f5f34b size: 2201
+[Pipeline] }
+[Pipeline] // withDockerRegistry
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Remove Unused docker image)
+[Pipeline] bat
+
+C:\Users\hodiy\.jenkins\workspace\sela>docker rmi devhodi/app-hodaya:2
+Untagged: devhodi/app-hodaya:2
+Untagged: devhodi/app-hodaya@sha256:de57225229fb254347d0d6762cd285ceb88ffde1154d709b4166756ea5f5f34b
+Deleted: sha256:462a9c07c1a3eb5a107b4cb0ad6fdf7b670b1a693116f39087ff06c61733665f
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (run helm k8s)
+[Pipeline] bat
+
+C:\Users\hodiy\.jenkins\workspace\sela>helm install k8shelm k8s_backend_test --set image.test.tag="${BUILD_NUMBER}"
+Error: rendered manifests contain a resource that already exists. Unable to continue with install: Service "test-k8s-service" in namespace "default" exists and cannot be imported into the current release: invalid ownership metadata; label validation error: missing key "app.kubernetes.io/managed-by": must be set to "Helm"; annotation validation error: missing key "meta.helm.sh/release-name": must be set to "k8shelm"; annotation validation error: missing key "meta.helm.sh/release-namespace": must be set to "default"
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+ERROR: script returned exit code 1
+Finished: FAILURE
